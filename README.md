@@ -33,7 +33,7 @@ Make sure you have Node.js installed (v16.0.0 or higher recommended) and `npm`.
    ```
 
 ## AI Tools Used
-- Development and designed using the assistance of  **Google DeepMind's Antigravity (AGY)** intelligent agent system, focusing on high-quality iterative architecture, UX aesthetics, and complex problem-solving.
+- Developmed and designed using the assistance of  **Google DeepMind's Antigravity (AGY)** intelligent agent system, focusing on high-quality iterative architecture, UX aesthetics, and complex problem-solving.
 - Code improvement adheres to the provided Senior Frontend Engineer ruleset encompassing clean architecture, hooks-based functional React components, and responsive pure-CSS frameworks.
 
 ## Known Limitations
