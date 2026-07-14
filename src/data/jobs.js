@@ -8,7 +8,11 @@ const jobs = [
     budget: 80000,
     skills: ["React", "JavaScript", "CSS"],
     posted: "2 days ago",
+    postedAt: "2026-07-12T10:30:00Z", // Added for sorting
     proposals: 18,
+    description: "We are looking for an experienced Frontend React Developer to join our core product team. You will be responsible for building responsive, accessible, and high-performance user interfaces. Experience with modern React practices, including hooks and state management, is required.",
+    deadline: "In 14 days",
+    employerRating: 4.8,
   },
   {
     id: 2,
@@ -19,7 +23,11 @@ const jobs = [
     budget: 95000,
     skills: ["Node.js", "Express", "PostgreSQL"],
     posted: "Today",
+    postedAt: "2026-07-14T08:15:00Z", // Added for sorting
     proposals: 9,
+    description: "KCB Bank is seeking a talented Backend Node.js Developer to architect and build scalable APIs for our next-generation digital banking platform. You should have strong knowledge of SQL databases, RESTful API design, and security best practices.",
+    deadline: "In 7 days",
+    employerRating: 4.5,
   },
   {
     id: 3,
@@ -30,7 +38,11 @@ const jobs = [
     budget: 75000,
     skills: ["Flutter", "Firebase", "Dart"],
     posted: "1 day ago",
+    postedAt: "2026-07-13T14:20:00Z", // Added for sorting
     proposals: 14,
+    description: "Join Airtel Kenya as a Flutter Mobile Developer to help us create a seamless and robust self-care application. The ideal candidate will have published at least one Flutter app to the Play Store or App Store and be comfortable integrating with REST APIs.",
+    deadline: "In 30 days",
+    employerRating: 4.2,
   },
   {
     id: 4,
@@ -41,7 +53,11 @@ const jobs = [
     budget: 65000,
     skills: ["Figma", "Adobe XD", "UI Design"],
     posted: "3 days ago",
+    postedAt: "2026-07-11T09:45:00Z", // Added for sorting
     proposals: 20,
+    description: "We need a creative UI/UX Designer to revamp our internal talent matching platform. You'll work closely with product managers and engineers to conduct user research, create wireframes, and deliver high-fidelity interactive prototypes in Figma.",
+    deadline: "In 10 days",
+    employerRating: 4.9,
   },
   {
     id: 5,
@@ -52,7 +68,11 @@ const jobs = [
     budget: 120000,
     skills: ["React", "Node.js", "MongoDB"],
     posted: "Today",
+    postedAt: "2026-07-14T11:00:00Z", // Added for sorting
     proposals: 6,
+    description: "Twiga Foods is hiring a Full Stack Developer to help build our B2B supply chain platform. You will develop both the React frontend and the Node.js/MongoDB backend, ensuring end-to-end functionality, high availability, and scalability.",
+    deadline: "In 21 days",
+    employerRating: 4.6,
   },
   {
     id: 6,
@@ -63,7 +83,11 @@ const jobs = [
     budget: 110000,
     skills: ["Java", "Spring Boot", "MySQL"],
     posted: "5 days ago",
+    postedAt: "2026-07-09T16:30:00Z", // Added for sorting
     proposals: 15,
+    description: "NCBA Bank requires a Senior Java Developer specializing in Spring Boot microservices. You will migrate legacy monolithic applications to a modern microservices architecture running on Kubernetes.",
+    deadline: "In 5 days",
+    employerRating: 4.4,
   },
   {
     id: 7,
@@ -74,7 +98,11 @@ const jobs = [
     budget: 90000,
     skills: ["React Native", "Expo", "Firebase"],
     posted: "Yesterday",
+    postedAt: "2026-07-13T08:00:00Z", // Added for sorting
     proposals: 11,
+    description: "Cellulant is looking for a React Native Developer to enhance our flagship mobile payment application. You will be responsible for integrating new payment gateways, improving app performance, and building new user-facing features.",
+    deadline: "In 12 days",
+    employerRating: 4.7,
   },
   {
     id: 8,
@@ -85,7 +113,11 @@ const jobs = [
     budget: 100000,
     skills: ["Figma", "UX Research", "Prototyping"],
     posted: "Today",
+    postedAt: "2026-07-14T12:00:00Z", // Added for sorting
     proposals: 5,
+    description: "Join Microsoft Africa's design team to shape the future of enterprise software. We are looking for an experienced Product Designer who excels in systemic thinking, user research, and delivering polished, accessible design systems.",
+    deadline: "In 28 days",
+    employerRating: 5.0,
   },
   {
     id: 9,
@@ -96,7 +128,11 @@ const jobs = [
     budget: 130000,
     skills: ["Next.js", "TypeScript", "Tailwind"],
     posted: "4 days ago",
+    postedAt: "2026-07-10T14:15:00Z", // Added for sorting
     proposals: 22,
+    description: "Google Africa is hiring a Next.js Developer to build blazing fast, SEO-optimized web applications. Strong proficiency in React, Server-Side Rendering (SSR), TypeScript, and modern CSS frameworks like Tailwind is essential.",
+    deadline: "In 15 days",
+    employerRating: 4.9,
   },
   {
     id: 10,
@@ -107,7 +143,11 @@ const jobs = [
     budget: 140000,
     skills: ["Docker", "Kubernetes", "AWS"],
     posted: "Today",
+    postedAt: "2026-07-14T15:45:00Z", // Added for sorting
     proposals: 4,
+    description: "We are seeking a seasoned DevOps Engineer to automate and manage cloud infrastructure using Terraform, Kubernetes, and AWS services. You will ensure our deployments are secure, highly available, and easily scalable.",
+    deadline: "In 20 days",
+    employerRating: 4.8,
   },
 ];
 
