@@ -1,10 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./components/layout/header";
 import SearchFilters from "./components/filters/searchFilter";
 import JobList from "./components/jobs/jobList";
+import LoadingSkeleton from "./components/jobs/loadingSkeleton";
+import JobDetailModal from "./components/jobs/JobDetailModal";
+import ErrorState from "./components/jobs/ErrorState";
 import jobsData from "./data/jobs";
+import "./styles/jobs.css"; // Ensure jobs layout styles are imported
 
 function App() {
+  const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+  const [selectedJob, setSelectedJob] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [sortBy, setSortBy] = useState("newest");
+  
   // All filter values live in one object
   const [filters, setFilters] = useState({
     search: "",
@@ -12,6 +24,44 @@ function App() {
     location: "",
     budget: "",
   });
+
+  // Mock fetch function that simulates API call and can fail
+  const simulateFetchJobs = () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        // Toggle this value to simulate success/failure
+        const shouldFail = false;
+
+        if (shouldFail) {
+          reject(new Error("Failed to load jobs."));
+        } else {
+          resolve(jobsData);
+        }
+      }, 1500);
+    });
+  };
+
+  const loadJobs = async () => {
+    setLoading(true);
+    // Clear any previous error before attempting a new fetch 
+    // so the user doesn't see old error messages while waiting.
+    setError(null);
+    try {
+      const data = await simulateFetchJobs();
+      setJobs(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      // Regardless of success or failure, we must remove the loading state 
+      // so the UI can transition to displaying either the data or the error state.
+      setLoading(false);
+    }
+  };
+
+  // Initial load
+  useEffect(() => {
+    loadJobs();
+  }, []);
 
   // Generic function for updating any filter
   const handleFilterChange = (name, value) => {
@@ -21,48 +71,104 @@ function App() {
     }));
   };
 
-  const filteredJobs = jobsData.filter((job) => {
-  const matchesSearch =
-    job.title.toLowerCase().includes(filters.search.toLowerCase()) ||
-    job.employer.toLowerCase().includes(filters.search.toLowerCase());
+  const handleClearFilters = () => {
+    setFilters({
+      search: "",
+      category: "",
+      location: "",
+      budget: "",
+    });
+  };
 
-  const matchesCategory =
-    filters.category === "" ||
-    job.category === filters.category;
+  const handleOpenModal = (job) => {
+    setSelectedJob(job);
+    setIsModalOpen(true);
+    // Lock the body scroll when the modal is active 
+    // to prevent the underlying page from scrolling while the user interacts with the modal.
+    document.body.style.overflow = "hidden";
+  };
 
-  const matchesLocation =
-    filters.location === "" ||
-    job.location === filters.location;
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedJob(null);
+    document.body.style.overflow = ""; // Restore background scrolling
+  };
 
-  const matchesBudget =
-    filters.budget === "" ||
-    job.budget <= Number(filters.budget);
+  const filteredJobs = jobs.filter((job) => {
+    const matchesSearch =
+      job.title.toLowerCase().includes(filters.search.toLowerCase()) ||
+      job.employer.toLowerCase().includes(filters.search.toLowerCase());
 
-  return (
-    matchesSearch &&
-    matchesCategory &&
-    matchesLocation &&
-    matchesBudget
-  );
-});
+    const matchesCategory =
+      filters.category === "" ||
+      job.category === filters.category;
+
+    const matchesLocation =
+      filters.location === "" ||
+      job.location === filters.location;
+
+    const matchesBudget =
+      filters.budget === "" ||
+      job.budget <= Number(filters.budget);
+
+    return (
+      matchesSearch &&
+      matchesCategory &&
+      matchesLocation &&
+      matchesBudget
+    );
+  });
+
+  // Sort jobs after filtering
+  const sortedJobs = [...filteredJobs].sort((a, b) => {
+    if (sortBy === "budget_high") {
+      return b.budget - a.budget;
+    }
+    if (sortBy === "budget_low") {
+      return a.budget - b.budget;
+    }
+    if (sortBy === "newest") {
+      // Sort by postedAt in descending order
+      return new Date(b.postedAt) - new Date(a.postedAt);
+    }
+    return 0;
+  });
 
   return (
     <>
       <Header />
 
       <main className="container">
-        <h1>Find Your Dream Job</h1>
-
         <SearchFilters
           filters={filters}
           onFilterChange={handleFilterChange}
+          sortBy={sortBy}
+          onSortChange={setSortBy}
         />
-          <p className="results">
-            Showing {filteredJobs.length} of {jobsData.length} jobs
-          </p>
+        
+        {/* Only show badge if not loading, no error, and there are jobs or filters applied */}
+        {!loading && !error && (
+          <div className="results-badge">
+            Showing <strong>{sortedJobs.length}</strong> of <strong>{jobs.length}</strong> jobs
+          </div>
+        )}
 
-          <JobList jobs={filteredJobs} />
+        {loading ? (
+          <LoadingSkeleton />
+        ) : error ? (
+          <ErrorState onRetry={loadJobs} />
+        ) : (
+          <JobList 
+            jobs={sortedJobs} 
+            onClearFilters={handleClearFilters}
+            onJobClick={handleOpenModal}
+          />
+        )}
       </main>
+
+      {isModalOpen && selectedJob && (
+        <JobDetailModal job={selectedJob} onClose={handleCloseModal} />
+      )}
     </>
   );
 }
